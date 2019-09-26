@@ -1,0 +1,23 @@
+<template>
+</template>
+
+<script scoped>
+  'use strict';
+  export default {
+    data: () => ({
+    }),
+    created() {
+    },
+    mounted() {
+    },
+    watch: {
+    },
+    computed: {
+    },
+    methods: {
+    },
+  };
+</script>
+
+<style scoped>
+</style>

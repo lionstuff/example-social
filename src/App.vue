@@ -1,31 +1,214 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app :dark='settings.theme.dark'>
+    <!-- #BEGIN BACKGROUND -->
+    <v-img
+      :lazy-src='settings.background'
+      :src='settings.background'
+      class='primary img'
+      height='100vh'
+      v-once
+      width='100vw'
+    />
+    <!-- #END BACKGROUND -->
+
+    <!-- #BEGIN NAVIGATION -->
+    <toolbar :menu='menu' v-if='true/*isAuthenticated*/'/>
+    <navigation-drawer v-if='isAuthenticated' :menu='menu'/>
+    <!-- #END NAVIGATION -->
+
+    <v-content>
+      <v-fade-transition mode='out-in'>
+        <keep-alive>
+          <router-view :background='settings.background' class='v-responsive__content'/>
+        </keep-alive>
+      </v-fade-transition>
+
+      <!-- #BEGIN SPEED-DIAL -->
+      <!-- <speed-dial/> -->
+      <!-- #END SPEED-DIAL -->
+
+      <!-- #BEGIN NOTIFICATIONS -->
+      <notifications/>
+      <!-- #END NOTIFICATION -->
+    </v-content>
+
+  </v-app>
 </template>
 
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  props: {
+    menu: {
+      // Struct:
+      //   [
+      //     [{},{},{},..{}],
+      //     [{},{},{},..{}],
+      //     ...
+      //     [{},{},{},..{}],
+      //   ]
+      type: Array,
+      default() {
+        return [
+          [
+            {
+              icon: 'mdi-home',
+              title: 'Главная',
+              to: 'dashboard',
+            },
+            {
+              icon: 'mdi-calendar-today',
+              title: 'События',
+              to: 'events',
+            },
+            {
+              icon: 'mdi-rss',
+              title: 'Задачи',
+              to: 'tasks',
+            },
+            {
+              icon: 'mdi-card-text',
+              title: 'test',
+              to: 'test',
+            },
+          ],
+          [
+            {
+              icon: 'mdi-information',
+              title: 'Логи',
+              to: 'logs',
+            },
+            {
+              icon: 'mdi-settings',
+              title: 'Параметры',
+              to: 'settings',
+            },
+          ],
+          [
+            {
+              icon: 'mdi-help-circle',
+              title: 'Помощь',
+              to: 'help',
+            },
+          ],
+        ];
+      },
+    },
+  },
+  data: () => ({
+  }),
+  created() {
+  },
+  mounted() { // [OK]
+    /** @description
+     *  Reset and apply default theme
+     */
+    // this.$store.dispatch('settings/restoreTheme'); // [OK]
+    Object.assign(this.$vuetify.theme, this.themes[this.settings.theme.name][this.settings.theme.dark ? 'dark' : 'light']); // [OK]
+
+    /** @description
+     *  Get log
+     */
+    this.$store.dispatch('log/get'); // [OK]
+  },
+  watch: {
+    isAuthenticated(val) {
+      if (val) {
+        /** @description Prepare item for add to log
+         *  @author https://github.com/lionstuff
+         */
+        const device = window.navigator.platform.toString().toLowerCase().search('win') > -1 ? 'Windows' : window.navigator.platform.toString().toLowerCase().search('android') ? 'Android' : window.navigator.platform.toString().toLowerCase().search('linux') ? 'Linux' : 'MacOS';
+        const logItem = {
+          description: `Выполнен вход с устройства ${device}, IP: ${window.location.hostname}`,
+          meta: 'login',
+          status: 'active', // 'done', 'none'
+          tickets: [
+            {
+              icon: 'mdi-account',
+              title: 'Вы',
+              type: 'user', // 'admin', 'user', 'action', 'event', 'task', 'text'
+              to: 'user',
+              params: this.user.uid,
+            },
+            {
+              title: 'Вход',
+              type: 'event', // 'admin', 'user', 'action', 'event', 'task', 'text'
+            },
+          ],
+          timestamp: Date.now(),
+          type: 'action',
+        };
+        this.$store.dispatch('log/add', logItem)
+          .then(() => {
+            this.$store.dispatch('log/set', this.log)
+              .then(() => {
+                this.$store.dispatch('log/get');
+          });
+        });
+      }
+    },
+  },
+  methods: {
+    // function setDarkThemeState({sunset, sunrise}) {
+    //   /// suncalc
+    //   const now = new Date();
+    //   const toMinutes = (d) => {
+    //     d.getHours() * 60 + d.getMinutes();
+    //     if (toMinutes(now) <= toMinutes(sunrise) || toMinutes(now) >= toMinutes(sunset)) {
+    //       setDarkheme();
+    //     } else {
+    //       setLightTheme();
+    //     }
+    //   }
+    // };
+  },
+  computed: {
+    ...mapState(['log', 'settings', 'themes', 'user']),
+    /** @name isAuthenticated
+     *  @description Check for user is authenticated
+     *  @param none
+     */
+    isAuthenticated() { // [OK]
+      return this.user.isAuthenticated;
+    },
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* DO NOT EDIT */
+html,
+body,
+.v-responsive__content {
+  cursor: default !important;
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+  text-shadow: none;
+  width: 100%;
 }
-#nav {
-  padding: 30px;
+/* DO NOT EDIT */
+.v-responsive__content {
+  height: 100% !important;
+  padding: 0px;
+  position: absolute;
+  /*scroll-behavior: smooth;*/
+  z-index: 1;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+a {
+  text-decoration: none !important;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.v-card {
+  border-radius: 6px;
+}
+.img {
+  position: fixed;
+  object-fit: cover;
+  overflow: hidden;
+  z-index: 1;
 }
 </style>
