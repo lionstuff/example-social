@@ -16,7 +16,7 @@
     <navigation-drawer v-if='isAuthenticated' :menu='menu'/>
     <!-- #END NAVIGATION -->
 
-    <v-content>
+    <v-content id='content'>
       <v-fade-transition mode='out-in'>
         <keep-alive>
           <router-view :background='settings.background' class='v-responsive__content'/>
@@ -30,7 +30,12 @@
       <!-- #BEGIN NOTIFICATIONS -->
       <notifications/>
       <!-- #END NOTIFICATION -->
+
     </v-content>
+
+    <!-- #BEGIN FOOTER -->
+    <!-- <ui-footer/> -->
+    <!-- #END FOOTER -->
 
   </v-app>
 </template>

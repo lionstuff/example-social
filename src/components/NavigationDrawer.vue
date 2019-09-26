@@ -137,12 +137,11 @@
               </v-card-title>
               <v-card-text>
                 <v-text-field
-                  :autofocus='user.methods.edit.name'
+                  :autofocus='user.methods.edit.name || true'
                   :label='user.email'
                   :maxlength='20'
                   :rules='nameRules'
                   @change='nameOnChange'
-                  autofocus
                   background-color='none'
                   class='title'
                   color='accent'
@@ -242,21 +241,20 @@
             justify-center
             wrap
           >
-            <v-chip
+            <!-- <v-chip
               :class='active'
               :disabled='true/*hasUpdate*/'
               :small='$vuetify.breakpoint.smAndDown'
             >
               {{ version.main }}.{{ version.build }}
-            </v-chip>
+            </v-chip> -->
             <v-chip
               :small='$vuetify.breakpoint.smAndDown'
-              class='transparent text-no-wrap'
+              class='transparent text-no-wrap text-xs-center text-md-center'
               disabled
               label
-              v-once
             >
-              &copy; {{ new Date().getFullYear() }} Ультернатива<br>
+              &copy; {{ new Date().getFullYear() }} Company<br>
               Все права защищены
             </v-chip>
           </v-layout>

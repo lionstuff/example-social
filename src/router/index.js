@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
   if (included.includes(to.name)) {
     next();
   } else if (JSON.parse(localStorage.getItem('user')).isAuthenticated) { // [OK]
-    next('dashboard');
+    next();
   } else if (!JSON.parse(localStorage.getItem('user')).isAuthenticated || JSON.parse(localStorage.getItem('user')).isAuthenticated === null) {
     next('signin');
   }
