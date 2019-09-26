@@ -57,5 +57,5 @@ export default {
       users: {},
     },
   },
-  tasks: null,
+  tasks: {},
 };

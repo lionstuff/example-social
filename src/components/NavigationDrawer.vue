@@ -4,8 +4,10 @@
       :style='settings.transparent ? `opacity: 0.9;` : ``'
       :app='main'
       :dark='settings.theme.dark'
-      :permanent='false/*!$vuetify.breakpoint.smAndDown*/'
-      :temporary='true/*$vuetify.breakpoint.smAndDoown*/'
+      :absolute='getDefaults.absolute || false'
+      :floating='getDefaults.floating || false'
+      :permanent='getDefaults.permanent || false/*!$vuetify.breakpoint.smAndDown*/'
+      :temporary='getDefaults.temporary || true/*$vuetify.breakpoint.smAndDoown*/'
       class='primary v-navigation-drawer'
       v-model='drawer'
     >
@@ -256,6 +258,7 @@
             >
               &copy; {{ new Date().getFullYear() }} Company<br>
               Все права защищены
+              {{ Object.keys(defaults) }}
             </v-chip>
           </v-layout>
         </section>
@@ -268,7 +271,7 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  props: ['menu'],
+  props: ['defaults', 'menu'],
   data: () => ({
     main: true,
     tooltip: true,
@@ -287,10 +290,8 @@ export default {
   },
 
   created() {
-    this.initialize();
   },
   mounted() {
-    //
   },
 
   computed: {
@@ -319,35 +320,19 @@ export default {
   },
   methods: {
     ...mapMutations('app', ['setDrawer']),
+    getDefaults() {
+      return Object.keys(this.defaults);
+    },
     nameOnChange(v) {
       // v1 [~OK]
       // const regexp = /^\w+$/;
       // if (regexp.test(v)) {
-      //   this.user.first = v; // ~ ???
+        //   this.user.first = v; // ~ ???
       // }
-    },
-    netStatusUpdate() { // [OK]
-      clearTimeout(this.timer);
-
-      if (window.navigator.onLine) {
-        const result = window.navigator.connection.effectiveType;
-        this.active = result > '3g' ? this.netStatus.fast
-          : result === '3g' ? this.netStatus.normal
-            : result === '2g' ? this.netStatus.low : this.netStatus.error;
-      } else {
-        this.active = this.netStatus.offline;
-      }
-
-      this.timer = setTimeout(() => {
-        this.netStatusUpdate();
-      }, 10000);
     },
     navigateTo(rout) { // [OK]
       this.setDrawer(false);
       this.$router.push(rout);
-    },
-    initialize() { // [OK]
-      this.netStatusUpdate();
     },
     signout() { // [OK]
       this.$store.dispatch('signout');
