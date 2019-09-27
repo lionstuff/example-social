@@ -10,24 +10,6 @@
     >
       <v-flex fluid :pa-0='$vuetify.breakpoint.smAndDown'>
         <v-layout justify-space-between fluid pa-1 column>
-          <v-card
-            :class='["primary", !$vuetify.breakpoint.smAndDown ? "card" : ""]'
-            :dark='settings.theme.dark'
-            :style='`${$vuetify.breakpoint.smAndDown ? "border-radius: 0px;" : ""} ${settings.transparent ? "opacity: 0.9;" : ""}`'
-            tile
-          >
-            <v-layout fluid row align-center>
-            <v-card-title secondary class='display-1'>
-              {{ user.displayName }}
-            </v-card-title>
-            <v-spacer/>
-              <v-btn :icon='$vuetify.breakpoint.smAndDown' flat @click.native='' right small>
-                {{ $vuetify.breakpoint.smAndDown ? '' : 'Редактировать' }}
-                <v-icon :right='!$vuetify.breakpoint.smAndDown'>mdi-pencil-circle</v-icon>
-              </v-btn>
-            </v-layout>
-          </v-card>
-          <v-divider/>
           <v-layout
             justify-space-between
             fluid

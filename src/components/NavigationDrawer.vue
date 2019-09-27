@@ -4,21 +4,19 @@
       :clipped='!$vuetify.breakpoint.smAndDown'
       :floating='!$vuetify.breakpoint.smAndDown'
       :style='settings.transparent ? `opacity: 0.9;` : ``'
-      :app='!$vuetify.breakpoint.smAndDown'
       :dark='settings.theme.dark'
-      :absolute='false'
       :fixed='true'
       :permanent='false/*!$vuetify.breakpoint.smAndDown*/'
       :temporary='false/*$vuetify.breakpoint.smAndDoown*/'
+      app
       class='primary v-navigation-drawer'
       v-model='drawer'
     >
       <!-- #BEGIN USER PROFILE SECTION -->
-        <!-- app -->
       <v-card
         :dark='settings.theme.dark'
         :class='["primary", !$vuetify.breakpoint.smAndDown ? "card" : ""]'
-        flat
+        :flat='$vuetify.breakpoint.smAndDown'
         fluid
         height='38vh'
         style='border-radius: 0px;'
@@ -88,7 +86,7 @@
                   :transition='`slide-y-transition`'
                   mode='in-out'
                   v-for='(btn, i) in [
-                    { icon: `mdi-pencil`, tooltip: `Переименовать`, click: () => {user.methods.edit.name = true; user.edit = false; drawer = false;}, },
+                    { icon: `mdi-pencil`, tooltip: `Переименовать`, click: () => {user.methods.edit.name = true; user.edit = false; setDrawer(!$vuetify.breakpoint.smAndDown)}, },
                     { icon: `mdi-camera`, tooltip: `Фото` },
                     { icon: `mdi-logout`, tooltip: `Выйти`, click: () => {user.edit = false; drawer = false; signout();} },
                   ]'
@@ -184,7 +182,7 @@
           <!-- :to='element.to' -->
         <v-list-tile
           :key='`element${z}`'
-          @click='navigateTo(element.to);'
+          @click.prevent='navigateTo(element.to);'
           active-class='primary lighten-1'
           ripple
           v-for='(element, z) in Object.values(menu[i])'
@@ -274,18 +272,7 @@ import { mapState, mapMutations } from 'vuex';
 export default {
   props: ['menu'],
   data: () => ({
-    main: true,
     tooltip: true,
-    timer: 0,
-    active: 'default',
-    netStatus: {
-      default: 'default',
-      fast: 'success',
-      normal: 'info',
-      low: 'warning',
-      offline: 'primary',
-      error: 'primary error--text',
-    },
   }),
   watch: {
   },
@@ -329,10 +316,14 @@ export default {
       // }
     },
     navigateTo(rout) { // [OK]
-      this.setDrawer(false);
+      if (this.$vuetify.breakpoint.smAndDown) {
+        this.setDrawer(false);
+      }
+      this.updateUserInfo();
       this.$router.push(rout);
     },
     signout() { // [OK]
+      this.updateUserInfo();
       this.$store.dispatch('signout');
     },
     namePlaceholder(name) { // [OK]
@@ -342,7 +333,7 @@ export default {
       }
     },
     getCount(title) { // [*]
-      const result = title === `События` ? Object.keys(this.posts).length > 0 ? Object.keys(this.posts).length : '' : title === `Логи` ? Object.keys(this.log).length > 0 ? Object.keys(this.log).length : '' : Math.round(Math.random() * 1e3) + 1;
+      const result = title === `События` ? Object.keys(this.posts).length > 0 ? Object.keys(this.posts).length : '' : title === `Логи` ? Object.keys(this.log).length > 0 ? Object.keys(this.log).length : '' : Math.round(Math.random() * 1e2) + 1;
       return result > 99 ? '99+' : result;
     },
     getLength(value) {

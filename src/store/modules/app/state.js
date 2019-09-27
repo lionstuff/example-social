@@ -4,7 +4,7 @@ export default {
     main: '0.0.1',
     build: 201909271356,
   },
-  drawer: false,
+  drawer: true,
   users: {},
   posts: {},
   comments: {},
