@@ -12,11 +12,21 @@
     <!-- #END BACKGROUND -->
 
     <!-- #BEGIN NAVIGATION -->
-    <toolbar :menu='menu' v-if='true/*isAuthenticated*/'/>
-    <navigation-drawer v-if='isAuthenticated' :menu='menu'/>
+  <!-- <v-container grid-list-xs :pa-0='$vuetify.breakpoint.smAndDown' fluid> -->
+      <!-- justify-space-around -->
+    <!-- <v-layout
+      :ma-0='$vuetify.breakpoint.smAndDown'
+      :ma-3='$vuetify.breakpoint.mdAndUp'
+      :wrap='$vuetify.breakpoint.smAndDown'
+      fluid
+      row
+    > -->
+      <toolbar :menu='menu' v-if='true/*isAuthenticated*/'/>
+      <navigation-drawer v-if='isAuthenticated' :menu='menu' fixed/>
+    <!-- </v-layout> -->
     <!-- #END NAVIGATION -->
 
-    <v-content id='content'>
+    <v-content>
       <v-fade-transition mode='out-in'>
         <keep-alive>
           <router-view :background='settings.background' class='v-responsive__content'/>
@@ -30,8 +40,9 @@
       <!-- #BEGIN NOTIFICATIONS -->
       <notifications/>
       <!-- #END NOTIFICATION -->
-
     </v-content>
+
+  <!-- </v-container> -->
 
     <!-- #BEGIN FOOTER -->
     <!-- <ui-footer/> -->
@@ -185,7 +196,7 @@ export default {
 /* DO NOT EDIT */
 html,
 body,
-.v-responsive__content {
+.v-responsive__content_ {
   cursor: default !important;
   height: 100%;
   min-height: 100%;
@@ -197,9 +208,8 @@ body,
 }
 /* DO NOT EDIT */
 .v-responsive__content {
-  height: 100% !important;
-  padding: 0px;
-  position: absolute;
+  /* padding: 0px; */
+  position: relative;
   /*scroll-behavior: smooth;*/
   z-index: 1;
 }

@@ -116,9 +116,17 @@ export default {
       commit('setBusy', false);
     }
   },
+  async addPosts({ commit }, payload) {
+    commit('setBusy', true);
+    const response = await api().post('/posts');
+    if (response.status === 200) {
+      commit('setPosts', response.data);
+      commit('setBusy', false);
+    }
+  },
   async getComments({ commit }) {
     commit('setBusy', true);
-    const response = await api().get('/posts');
+    const response = await api().get('/comments');
     if (response.status === 200) {
       commit('setComments', response.data);
       commit('setBusy', false);

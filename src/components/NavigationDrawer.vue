@@ -1,13 +1,15 @@
 <template>
   <!-- <v-layout class='fluid column fill-height ma-0 pa-0'> -->
     <v-navigation-drawer
+      :clipped='!$vuetify.breakpoint.smAndDown'
+      :floating='!$vuetify.breakpoint.smAndDown'
       :style='settings.transparent ? `opacity: 0.9;` : ``'
-      :app='main'
+      :app='!$vuetify.breakpoint.smAndDown'
       :dark='settings.theme.dark'
       :absolute='false'
-      :floating='false'
+      :fixed='true'
       :permanent='false/*!$vuetify.breakpoint.smAndDown*/'
-      :temporary='true/*$vuetify.breakpoint.smAndDoown*/'
+      :temporary='false/*$vuetify.breakpoint.smAndDoown*/'
       class='primary v-navigation-drawer'
       v-model='drawer'
     >
@@ -15,12 +17,12 @@
         <!-- app -->
       <v-card
         :dark='settings.theme.dark'
-        class='primary'
+        :class='["primary", !$vuetify.breakpoint.smAndDown ? "card" : ""]'
         flat
         fluid
         height='38vh'
         style='border-radius: 0px;'
-        tile
+        :tile='!$vuetify.breakpoint.smAndDown'
       >
 
         <v-img
@@ -218,7 +220,7 @@
               color='accent'
               disabled
               small
-              v-if='element.title !== `События` && element.title !== `Логи` ? Math.random() > 0.62 : element.title === `События` ? getLength(events) ? getLength(events) : element.title === `Логи` ? getLength(log) ? getLength(log) : false : false : true'
+              v-if='element.title !== `События` && element.title !== `Логи` ? Math.random() > 0.62 : element.title === `События` ? getLength(posts) ? getLength(posts) : element.title === `Логи` ? getLength(log) ? getLength(log) : false : false : true'
             >
               {{ getCount(element.title) }}
             </v-chip>
@@ -294,7 +296,7 @@ export default {
   },
 
   computed: {
-    ...mapState('app', ['version', 'events', 'tasks']),
+    ...mapState('app', ['version', 'posts', 'comments']),
     ...mapState(['settings', 'themes', 'user', 'log']),
     drawer: {
       get() {
@@ -319,9 +321,6 @@ export default {
   },
   methods: {
     ...mapMutations('app', ['setDrawer']),
-    getDefaults() {
-      return Object.keys(this.defaults);
-    },
     nameOnChange(v) {
       // v1 [~OK]
       // const regexp = /^\w+$/;
@@ -343,7 +342,7 @@ export default {
       }
     },
     getCount(title) { // [*]
-      const result = title === `События` ? Object.keys(this.events).length > 0 ? Object.keys(this.events).length : '' : title === `Логи` ? Object.keys(this.log).length > 0 ? Object.keys(this.log).length : '' : Math.round(Math.random() * 1e3) + 1;
+      const result = title === `События` ? Object.keys(this.posts).length > 0 ? Object.keys(this.posts).length : '' : title === `Логи` ? Object.keys(this.log).length > 0 ? Object.keys(this.log).length : '' : Math.round(Math.random() * 1e3) + 1;
       return result > 99 ? '99+' : result;
     },
     getLength(value) {

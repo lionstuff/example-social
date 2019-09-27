@@ -8,25 +8,6 @@
       justify-space-around
       row
     >
-      <v-flex fluid>
-        <v-layout justify-center fluid :pa-1='!$vuetify.breakpoint.smAndDown'>
-          <v-card
-            :class='["primary", !$vuetify.breakpoint.smAndDown ? "card" : ""]'
-            :dark='settings.theme.dark'
-            fluid
-            tile
-          >
-            <v-img
-              :lazy-src='user.photoURL'
-              :src='user.photoURL'
-              class='primary lighten-1'
-              height='450'
-              v-if='user.photoURL'
-              width='350'
-            />
-          </v-card>
-        </v-layout>
-      </v-flex>
       <v-flex fluid :pa-0='$vuetify.breakpoint.smAndDown'>
         <v-layout justify-space-between fluid pa-1 column>
           <v-card

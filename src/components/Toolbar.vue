@@ -1,13 +1,15 @@
 <template>
+    <!-- :scroll-threshold='50' -->
+    <!-- scroll-off-screen -->
   <v-toolbar
     :dark='settings.theme.dark'
     :flat='$vuetify.breakpoint.smAndDown'
-    :scroll-threshold='50'
     :style='settings.transparent ? `opacity: 0.9;` : ``'
+    :clipped-left='true'
+    fixed
     app
     class='primary'
     fluid
-    scroll-off-screen
   >
     <!-- <v-toolbar-side-icon @click.stop='toggleDrawer' v-if='isAuthenticated'/> -->
     <v-btn
@@ -15,7 +17,7 @@
       :large='!$vuetify.breakpoint.smAndDown'
       @click.stop='toggleDrawer'
       icon
-      v-if='isAuthenticated'
+      v-if='isAuthenticated && $vuetify.breakpoint.smAndDown'
     >
       <v-icon>mdi-menu</v-icon>
     </v-btn>
