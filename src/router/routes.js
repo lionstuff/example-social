@@ -33,11 +33,11 @@ const routes = [
   //   },
   // },
   {
-    path: '/test',
-    name: 'test',
+    path: '/messages',
+    name: 'messages',
     // component: Test,
     component() {
-      return import(/* webpackChunkName: "test" */ '@/views/Test.vue');
+      return import(/* webpackChunkName: "test" */ '@/views/Messages.vue');
     },
   },
   {

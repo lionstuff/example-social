@@ -12,18 +12,8 @@
     <!-- #END BACKGROUND -->
 
     <!-- #BEGIN NAVIGATION -->
-  <!-- <v-container grid-list-xs :pa-0='$vuetify.breakpoint.smAndDown' fluid> -->
-      <!-- justify-space-around -->
-    <!-- <v-layout
-      :ma-0='$vuetify.breakpoint.smAndDown'
-      :ma-3='$vuetify.breakpoint.mdAndUp'
-      :wrap='$vuetify.breakpoint.smAndDown'
-      fluid
-      row
-    > -->
-      <toolbar :menu='menu' v-if='true/*isAuthenticated*/'/>
-      <navigation-drawer v-if='isAuthenticated' :menu='menu' fixed/>
-    <!-- </v-layout> -->
+    <toolbar :menu='menu' v-if='true/*isAuthenticated*/'/>
+    <navigation-drawer v-if='isAuthenticated' :menu='menu' fixed/>
     <!-- #END NAVIGATION -->
 
     <v-content>
@@ -33,16 +23,10 @@
         </keep-alive>
       </v-fade-transition>
 
-      <!-- #BEGIN SPEED-DIAL -->
-      <!-- <speed-dial/> -->
-      <!-- #END SPEED-DIAL -->
-
       <!-- #BEGIN NOTIFICATIONS -->
       <notifications/>
       <!-- #END NOTIFICATION -->
     </v-content>
-
-  <!-- </v-container> -->
 
     <!-- #BEGIN FOOTER -->
     <!-- <ui-footer/> -->
@@ -74,19 +58,14 @@ export default {
               to: 'dashboard',
             },
             {
+              icon: 'mdi-card-text',
+              title: 'Сообщения',
+              to: 'messages',
+            },
+            {
               icon: 'mdi-calendar-today',
               title: 'События',
               to: 'events',
-            },
-            {
-              icon: 'mdi-rss',
-              title: 'Задачи',
-              to: 'tasks',
-            },
-            {
-              icon: 'mdi-card-text',
-              title: 'test',
-              to: 'test',
             },
           ],
           [
@@ -195,8 +174,7 @@ export default {
 <style>
 /* DO NOT EDIT */
 html,
-body,
-.v-responsive__content_ {
+body {
   cursor: default !important;
   height: 100%;
   min-height: 100%;
