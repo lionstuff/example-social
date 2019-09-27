@@ -4,10 +4,10 @@
       :style='settings.transparent ? `opacity: 0.9;` : ``'
       :app='main'
       :dark='settings.theme.dark'
-      :absolute='getDefaults.absolute || false'
-      :floating='getDefaults.floating || false'
-      :permanent='getDefaults.permanent || false/*!$vuetify.breakpoint.smAndDown*/'
-      :temporary='getDefaults.temporary || true/*$vuetify.breakpoint.smAndDoown*/'
+      :absolute='false'
+      :floating='false'
+      :permanent='false/*!$vuetify.breakpoint.smAndDown*/'
+      :temporary='true/*$vuetify.breakpoint.smAndDoown*/'
       class='primary v-navigation-drawer'
       v-model='drawer'
     >
@@ -258,7 +258,6 @@
             >
               &copy; {{ new Date().getFullYear() }} Company<br>
               Все права защищены
-              {{ Object.keys(defaults) }}
             </v-chip>
           </v-layout>
         </section>
@@ -271,7 +270,7 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  props: ['defaults', 'menu'],
+  props: ['menu'],
   data: () => ({
     main: true,
     tooltip: true,
