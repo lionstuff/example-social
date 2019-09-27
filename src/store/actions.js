@@ -5,7 +5,7 @@ export default {
   signup({ commit, dispatch }, payload) { // [*][OK]
     commit('setBusy', true);
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-      .then(async (response) => { // [OK]
+      .then(async () => { // [OK]
         const name = payload.displayName;
         const notification = {
           title: 'Поздравляем!',
@@ -23,8 +23,8 @@ export default {
         user.updateProfile({ // [OK]
           displayName: name,
           photoURL: `https://unsplash.it/300/300?image=${Math.round(Math.random() * 1083)}`,
-        // }).then(() => { // [OK]
-        //   commit('setBusy', false);
+        }).then(() => { // [OK]
+          dispatch('notifications/set', {type: 'success', notification}); // [OK]
         })
         .catch((error) => {
           const notification = { title: 'Ошибка', content: error.message, cancel: 'Ok' };
