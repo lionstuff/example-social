@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-sm :pa-0='$vuetify.breakpoint.smAndDown' fluid>
+  <v-container grid-list-xs :pa-0='$vuetify.breakpoint.smAndDown' fluid>
       <!-- justify-space-around -->
     <v-layout
       :ma-0='$vuetify.breakpoint.smAndDown'
@@ -55,6 +55,8 @@
         fluid
         justify-space-around
         column
+        pa-0
+        ma-1
       >
         <v-flex
           v-for='user in users'

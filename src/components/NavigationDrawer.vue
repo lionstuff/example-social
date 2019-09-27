@@ -171,10 +171,10 @@
       <!-- #END USER PROFILE SECTION -->
 
       <!-- #BEGIN MENU ITEMS SECTION -->
+        <!-- :dense='$vuetify.breakpoint.smAndDown' -->
       <v-list
         :class='[settings.transparent ? "transparent" : "", "pa-0 ma-0"]'
         :dark='settings.theme.dark'
-        :dense='$vuetify.breakpoint.smAndDown'
         :key='`menuItem${i}`'
         :style='settings.transparent ? `opacity: 0.9;` : ``'
         v-for='(items, i) in Object.values(menu)'
@@ -188,10 +188,10 @@
           v-for='(element, z) in Object.values(menu[i])'
         >
           <v-list-tile-avatar
-            :size='$vuetify.breakpoint.smAndDown ? 32 : 42'
+            :size='42/*$vuetify.breakpoint.smAndDown ? 32 : 42*/'
           >
+              <!-- :small='$vuetify.breakpoint.smAndDown' -->
             <v-icon
-              :small='$vuetify.breakpoint.smAndDown'
               class='primary'
               color='primary lighten-4'
             >
@@ -202,7 +202,7 @@
           <v-list-tile-content>
             <v-list-tile-title
               :class='[
-                $vuetify.breakpoint.smAndDown ? "caption" : "subheading",
+                /*$vuetify.breakpoint.smAndDown ? "caption" : "subheading",*/
                 `${settings.theme.dark ? "light" : "dark"}--text`
               ]'
             >
