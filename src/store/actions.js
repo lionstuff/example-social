@@ -17,7 +17,7 @@ export default {
           },
         };
 
-        dispatch('notifications/set', {type: 'success', notification}); // [OK]
+        // dispatch('notifications/set', {type: 'success', notification}); // [OK]
 
         const user = await firebase.auth().currentUser;
         user.updateProfile({ // [OK]
