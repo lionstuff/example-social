@@ -76,7 +76,7 @@
                 <v-img :src='getUserImg(user.id)' alt='user avatar'/>
               </v-avatar>
               <v-card-text>
-                {{ Math.random() > 0.62 ? tasks[user.id].title : tasks[user.id].body }}
+                {{ Math.random() > 0.62 ? posts[user.id].title : posts[user.id].body }}
               </v-card-text>
               <v-spacer/>
               <v-btn
@@ -109,12 +109,12 @@
     },
     mounted() {
       this.$store.dispatch('getUsers');
-      this.$store.dispatch('getTasks');
+      this.$store.dispatch('getPosts');
     },
     watch: {
     },
     computed: {
-      ...mapState('app', ['users', 'tasks']),
+      ...mapState('app', ['users', 'posts']),
       ...mapState(['settings', 'user']),
     },
     methods: {
@@ -122,7 +122,7 @@
         return `https://randomuser.me/api/portraits/${Math.random() > 0.62 ? "men" : "women"}/${id}.jpg`;
       },
       getPost() {
-        return this.tasks[Math.round(Math.random() * this.tasks.length)].title;
+        return this.posts[Math.round(Math.random() * this.posts.length)].title;
       },
     },
   };

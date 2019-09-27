@@ -22,10 +22,10 @@ export default {
   setUsers(state, payload) {
     state.app.users = payload;
   },
-  setTasks(state, payload) {
-    state.app.tasks = payload;
+  setPosts(state, payload) {
+    state.app.posts = payload;
   },
-  setEvents(state, payload) {
-    state.app.events = payload;
+  setComments(state, payload) {
+    state.app.comments = payload;
   },
 };

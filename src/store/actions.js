@@ -108,19 +108,19 @@ export default {
       commit('setBusy', false);
     }
   },
-  async getEvents({ commit }) {
+  async getPosts({ commit }) {
     commit('setBusy', true);
     const response = await api().get('/posts');
     if (response.status === 200) {
-      commit('setEvents', response.data);
+      commit('setPosts', response.data);
       commit('setBusy', false);
     }
   },
-  async getTasks({ commit }) {
+  async getComments({ commit }) {
     commit('setBusy', true);
     const response = await api().get('/posts');
     if (response.status === 200) {
-      commit('setTasks', response.data);
+      commit('setComments', response.data);
       commit('setBusy', false);
     }
   },

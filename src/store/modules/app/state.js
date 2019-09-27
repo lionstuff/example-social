@@ -6,6 +6,6 @@ export default {
   },
   drawer: false,
   users: {},
-  events: {},
-  tasks: {},
+  posts: {},
+  comments: {},
 };
