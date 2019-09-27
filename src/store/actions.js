@@ -118,7 +118,7 @@ export default {
   },
   async addPosts({ commit }, payload) {
     commit('setBusy', true);
-    const response = await api().post('/posts');
+    const response = await api().post('/posts', payload);
     if (response.status === 200) {
       commit('setPosts', response.data);
       commit('setBusy', false);

@@ -2,9 +2,9 @@ import { set, toggle } from '@/utils/vuex';
 
 export default {
   setDrawer: set('drawer'),
-  setEvents: set('events'),
+  setPosts: set('posts'),
   setSettings: set('settings'),
-  setTasks: set('tasks'),
+  setComments: set('comments'),
   setTheme: set('theme'),
   // setUser: set('user'),
   setUsers: set('users'),

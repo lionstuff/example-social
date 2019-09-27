@@ -23,7 +23,7 @@ export default {
     state.app.users = payload;
   },
   setPosts(state, payload) {
-    Object.assign(state.app.posts, payload);
+    state.app.posts = payload;
   },
   setComments(state, payload) {
     state.app.comments = payload;
