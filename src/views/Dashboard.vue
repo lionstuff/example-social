@@ -2,11 +2,12 @@
   <v-layout
     :ma-0='$vuetify.breakpoint.smAndDown'
     :ma-3='$vuetify.breakpoint.mdAndUp'
+    :pa-1='!$vuetify.breakpoint.smAndDown'
     :wrap='$vuetify.breakpoint.smAndDown'
+    column
     fluid
     justify-space-around
-    column
-    :pa-1='!$vuetify.breakpoint.smAndDown'
+    v-if='posts.length'
   >
     <v-flex
       xs12
@@ -56,7 +57,7 @@
                 fab
                 flat
                 small
-                v-for='btn in ["mdi-reply", "mdi-heart-circle"]'
+                v-for='btn in ["mdi-reply", "mdi-heart"]'
               >
                 <v-icon>{{ btn }}</v-icon>
               </v-btn>

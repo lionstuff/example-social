@@ -10,6 +10,7 @@ const config = {
   storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
   messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
   appId: process.env.VUE_APP_FIREBASE_APPID,
+  measuremenTId: process.env.VUE_APP_FIREBASE_MEASUREMENTID,
 };
 
 export default firebase.initializeApp(config);
