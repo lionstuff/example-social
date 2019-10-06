@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapState(['settings', 'user', 'notifications']),
     isAuthenticated() { // [OK]
-      return this.user.isAuthenticated;
+      return this.user.uid;
     },
   },
   methods: {

@@ -127,7 +127,7 @@ export default {
   computed: {
     ...mapState(['settings', 'user']),
     isAuthenticated() { // [OK]
-      return this.user.isAuthenticated;
+      return this.user.uid;
     },
     getPageTitle() {
       Object.values(this.menu).forEach((key, i) => {

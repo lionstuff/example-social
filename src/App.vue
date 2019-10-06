@@ -165,7 +165,7 @@ export default {
      *  @param none
      */
     isAuthenticated() { // [OK]
-      return this.user.isAuthenticated;
+      return this.user.uid;
     },
   },
 };

@@ -105,7 +105,7 @@ export default {
   computed: {
     ...mapState(['app', 'settings', 'user']),
     isAuthenticated() { // [OK]
-      return this.user.isAuthenticated; // [OK]
+      return this.user.uid;
     },
     getTitle() {
       return window.document.title;
