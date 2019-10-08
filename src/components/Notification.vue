@@ -412,7 +412,7 @@ export default {
       this.showChange(false);
     },
   },
-  beforeDestroyed() {
+  beforeDestroy() {
     this.onCancel();
   },
 };

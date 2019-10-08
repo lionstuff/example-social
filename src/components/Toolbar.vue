@@ -1,6 +1,4 @@
 <template>
-    <!-- :scroll-threshold='50' -->
-    <!-- scroll-off-screen -->
   <v-toolbar
     :dark='settings.theme.dark'
     :flat='$vuetify.breakpoint.smAndDown'
@@ -17,16 +15,21 @@
       :large='!$vuetify.breakpoint.smAndDown'
       @click.stop='toggleDrawer'
       icon
-      v-if='isAuthenticated && $vuetify.breakpoint.smAndDown'
+      v-if='$vuetify.breakpoint.smAndDown && isAuthenticated'
     >
       <v-icon>mdi-menu</v-icon>
     </v-btn>
-    <v-toolbar-title
-      :class='[$vuetify.breakpoint.smAndDown ? "subheading" : "title"]'
-      v-if='isAuthenticated'
-    >
-      {{ title }}
-    </v-toolbar-title>
+    <v-layout align-center row>
+      <v-flex xs12 :mt-1='$vuetify.breakpoint.smAndDown'>
+        <v-toolbar-title
+          :class='[$vuetify.breakpoint.smAndDown ? "subheading" : "title"]'
+          v-if='isAuthenticated'
+        >
+          {{ getPageTitle }}
+        </v-toolbar-title>
+      </v-flex>
+    </v-layout>
+
     <v-layout
       align-center
       fluid
@@ -34,7 +37,8 @@
       row
       v-if='isAuthenticated'
     >
-      <v-flex fluid xl8 lg6 md6 sm6 xs5 mt-2>
+        <!-- xl8 lg6 md6 sm6 xs5 -->
+      <v-flex fluid xs8 mt-2>
         <v-text-field
           :background-color='color === "accent" ? "none" : color'
           :class='[$vuetify.breakpoint.smAndDown ? "subheading" : "title"]'
@@ -54,6 +58,7 @@
             <v-btn
               :class='`${settings.theme.dark ? "light" : "dark"}--text`'
               :dark='settings.theme.dark'
+              :large='!$vuetify.breakpoint.smAndDown'
               @click='hasResult'
               icon
             >
@@ -114,7 +119,7 @@ export default {
     color: 'accent', // 'info lighten-2',
     search: '',
     result: null,
-    title: '',
+    title: 'Город',
   }),
   watch: {
     '$route' (to, from, next) {
@@ -130,13 +135,20 @@ export default {
       return this.user.uid;
     },
     getPageTitle() {
-      Object.values(this.menu).forEach((key, i) => {
-        Object.values(this.menu[i]).forEach((item, n) => {
-          if (item.to === this.$route.name) {
-            this.title = item.title;
+      let result = '';
+      if (this.$vuetify.breakpoint.smAndDown) {
+        for (let item of this.menu) {
+          for (let target of item) {
+            if (target.to === this.$route.name) {
+              result = target.title;
+              break;
+            }
           }
-        });
-      });
+        }
+      } else {
+        result = 'Город';
+      }
+      return result;
     },
   },
   methods: {

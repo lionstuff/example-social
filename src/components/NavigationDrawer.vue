@@ -173,19 +173,23 @@
       <!-- #BEGIN MENU ITEMS SECTION -->
         <!-- :dense='$vuetify.breakpoint.smAndDown' -->
       <v-list
-        :class='[settings.transparent ? "transparent" : "", "pa-0 ma-0"]'
         :dark='settings.theme.dark'
+        :class='[settings.transparent ? "transparent" : "", "pa-0 ma-0"]'
         :key='`menuItem${i}`'
         :style='settings.transparent ? `opacity: 0.9;` : ``'
-        v-for='(items, i) in Object.values(menu)'
+        v-for='(items, i) of menu'
+        subheader
       >
           <!-- :to='element.to' -->
         <v-list-tile
           :key='`element${z}`'
-          @click.prevent='navigateTo(element.to);'
+          :to='element.to'
+          @click='navigateTo(element.to);'
           active-class='primary lighten-1'
+          exact
           ripple
-          v-for='(element, z) in Object.values(menu[i])'
+          v-for='(element, z) of menu[i]'
+          :avatar='!$vuetify.breakpoint.smAndDown'
         >
           <v-list-tile-avatar
             :size='42/*$vuetify.breakpoint.smAndDown ? 32 : 42*/'
@@ -340,9 +344,12 @@ export default {
       return Object.keys(value).length;
     },
     updateUserInfo() {
-      this.user.methods.edit.name = false;
-      this.user.edit = false;
+      // this.user.methods.edit.name = false;
+      // this.user.edit = false;
     },
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer);
   },
 };
 </script>
