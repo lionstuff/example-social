@@ -180,7 +180,6 @@
         v-for='(items, i) of menu'
         subheader
       >
-          <!-- :to='element.to' -->
         <v-list-tile
           :key='`element${z}`'
           :to='element.to'
@@ -191,10 +190,7 @@
           v-for='(element, z) of menu[i]'
           :avatar='!$vuetify.breakpoint.smAndDown'
         >
-          <v-list-tile-avatar
-            :size='42/*$vuetify.breakpoint.smAndDown ? 32 : 42*/'
-          >
-              <!-- :small='$vuetify.breakpoint.smAndDown' -->
+          <v-list-tile-avatar>
             <v-icon
               class='primary'
               color='primary lighten-4'

@@ -14,6 +14,7 @@
     <v-layout
       align-center
       justify-center
+      row
       wrap
     >
       <v-flex lg6 md8 sm8 xs12>

@@ -1,12 +1,13 @@
 <template>
   <v-app :dark='settings.theme.dark'>
     <!-- #BEGIN BACKGROUND -->
+      <!-- v-once -->
     <v-img
       :lazy-src='settings.background'
       :src='settings.background'
       class='primary img'
+      eager='true'
       height='100vh'
-      v-once
       width='100vw'
     />
     <!-- #END BACKGROUND -->
@@ -27,10 +28,6 @@
       <notifications/>
       <!-- #END NOTIFICATION -->
     </v-content>
-
-    <!-- #BEGIN FOOTER -->
-    <!-- <ui-footer/> -->
-    <!-- #END FOOTER -->
 
   </v-app>
 </template>
@@ -135,12 +132,8 @@ export default {
           type: 'action',
         };
         this.$store.dispatch('log/add', logItem)
-          .then(() => {
-            this.$store.dispatch('log/set', this.log)
-              .then(() => {
-                this.$store.dispatch('log/get');
-          });
-        });
+          .then(() => this.$store.dispatch('log/set', this.log))
+          .then(() => this.$store.dispatch('log/get'));
       }
     },
   },
@@ -188,7 +181,7 @@ body {
 .v-responsive__content {
   /* padding: 0px; */
   position: relative;
-  /*scroll-behavior: smooth;*/
+  scroll-behavior: smooth;
   z-index: 1;
 }
 

@@ -110,7 +110,7 @@ export default {
   },
   async getPosts({ commit }) {
     commit('setBusy', true);
-    const response = await api().get('/posts');
+    const response = await api().get('/posts?_limit=10');
     if (response.status === 200) {
       commit('setPosts', response.data);
       commit('setBusy', false);

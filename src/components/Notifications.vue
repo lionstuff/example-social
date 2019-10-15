@@ -17,7 +17,7 @@
   			:position='notification.position || settings.notifications.position'
   			:small='notification.small || settings.notifications.small'
   			:subtitle='notification.subtitle'
-  			:timeout='notification.timeout || settings.notifications.timeout'
+        :timeout='notification.timeout === 0 ? notification.timeout : notification.timeout || settings.notifications.timeout'
   			:title='notification.title'
   			@onCancel='notification.onCancel ? notification.onCancel() : () => {``}; onClick({type: type, id: notification.id});'
   			@onConfirm='notification.onConfirm ? notification.onConfirm() : () => {``}; onClick({type: type, id: notification.id});'

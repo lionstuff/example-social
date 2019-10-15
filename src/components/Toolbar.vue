@@ -146,7 +146,7 @@ export default {
           }
         }
       } else {
-        result = 'Город';
+        result = 'example-social';
       }
       return result;
     },

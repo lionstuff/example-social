@@ -51,13 +51,17 @@
 <script scoped>
   import { mapState } from 'vuex';
   export default {
+    beforeRouteEnter(to, from, next) {
+      next(async vm => {
+        await !vm.users.length ? vm.$store.dispatch('getUsers') : null;
+        await !vm.posts.length ? vm.$store.dispatch('getPosts') : null;
+      });
+    },
     data: () => ({
     }),
     created() {
     },
     mounted() {
-      this.$store.dispatch('getUsers');
-      this.$store.dispatch('getPosts');
     },
     watch: {
     },

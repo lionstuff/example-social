@@ -20,12 +20,13 @@ const router = new Router({
 const included = ['signin', 'signup'];
 
 router.beforeEach((to, from, next) => {
-  if (included.includes(to.name)) {
-    next();
-  } else if (JSON.parse(localStorage.getItem('user')).isAuthenticated) { // [OK]
-    next();
-  } else if (!JSON.parse(localStorage.getItem('user')).isAuthenticated || JSON.parse(localStorage.getItem('user')).isAuthenticated === null) {
-    next('signin');
+  const uid = JSON.parse(localStorage.getItem('user')).uid || null;
+  if (!uid && included.includes(to.name)) {
+    next(); // [OK]
+  } else if (uid) {
+    next(); // [OK]
+  } else {
+    next('/signin'); // [OK]
   }
 });
 
