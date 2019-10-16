@@ -17,8 +17,8 @@
         :width='__small ? 256 : 300'
         @click.stop=''
         @mouseenter='time(0);'
-        @mouseleave='time(timeout);'
-        @mouseout='time(timeout);'
+        @mouseleave='time(__timeout);'
+        @mouseout='time(__timeout);'
         @mouseover='time(0);'
         flat
         fluid
@@ -71,12 +71,20 @@
                 </v-list-tile-sub-title>
               </v-list-tile-content>
               <v-spacer v-if='__icon'/>
-              <v-list-tile-avatar v-if='__icon'>
-                <v-btn
+              <v-list-tile-avatar v-if='__icon' style='text-shadow: none;'>
+<!--                 <v-icon
+                  :class='[__small ? `mdi-24px` : `mdi-36px`, __background ? `transparent` : __color, `${!__background ? "" : " lighten-2"}`]'
+                  :color='`${__background ? __color : "transparent"}` + `${__background ? "" : __color + " text--lighten-1"}`'
+                  small
+                  v-if='!__mini'
+                >
+                  {{ __icon }}
+                </v-icon>
+ -->                <v-btn
                   :small='__small'
-                  icon
+                  @click.native='__mini ? $listeners["onCancel"](showChange(false)) : ``'
                   flat
-                  @click.native='__mini ? showChange(false) : ``'
+                  icon
                 >
                   <v-icon
                     :color='`${__background ? __color : "transparent"}` + `${__background ? "" : __color + " text--lighten-1"}`'
@@ -94,18 +102,17 @@
           <v-divider :class='[__color, __dark ? `lighten-1` : `darken-1`, __small ? `mx-2` : `mx-3`]' v-if='!__mini && !__background'/>
           <!-- <transition group :name='__transition' :key='`layout${__transition}`' mode='out-in'> -->
             <v-layout v-if='!__mini' class='card-text font-weight-light align-center text-xs-justify'>
-              <v-card-text v-html='__content' :class='[`text ma-1 pa-2`, __small ? `px-1` : `px-3`, !__content ? `${__color} lighten-1` : ``]'/>
+              <v-card-text v-html='__content' :class='[`text ma-1 pa-1`, __small ? `px-1` : `px-3`, !__content ? `${__color} lighten-1` : ``]'/>
             </v-layout>
           <!-- </transition> -->
           <v-card-actions v-if='!__mini' :dark='__dark' ripple>
-            <v-menu v-if='!__app'>
+            <v-menu v-if='!__app' offset-y :transition='__transition === "slide-x-transition" ? "slide-y-transition" : "slide-y-reverse-transition"'>
               <v-btn v-if='!__onMenu' slot='activator' :fab='!__small' :icon='__small' small flat @click.native='__onMenu'>
                 <v-icon :small='__small'>mdi-dots-vertical</v-icon>
               </v-btn>
-              <v-list :dense='__small' class='__color' :dark='__dark'> <!-- [!][9] [Todo] Add support for custom menu component (v-html='' ???) -->
+              <v-list :dense='__small' subheader :class='[__color, "primary v-card tile card"]' :dark='__dark'> <!-- [!][9] [Todo] Add support for custom menu component (v-html='' ???) -->
                 <v-list-tile
                   :key='index'
-                  @click='/**/'
                   v-for='index in 3'
                 >
                   <v-list-tile-title>Element {{ index }}</v-list-tile-title>
@@ -128,7 +135,7 @@
           v-if='__background'
         />
 
-        <svg version='1.1' height='0'>
+        <svg version='1.1' height='0' v-if='__background'>
           <defs>
             <filter id='blurfilter' height='100vh' width='100vw'>
               <feGaussianBlur stdDeviation='7' result='BLUR'/>
@@ -271,6 +278,9 @@ export default {
     __position() {
       return this.position;
     },
+    __timeout() {
+      return this.timeout;
+    },
     __transition() {
       return this.transition;
     },
@@ -412,6 +422,7 @@ export default {
       this.showChange(false);
     },
   },
+
   beforeDestroy() {
     this.onCancel();
   },
@@ -459,9 +470,7 @@ export default {
   text-shadow: 0 0 5px black, 0 0 3px black, 0 0 1px black;
   /*text-align: justify;*/
   box-sizing: border-box;
-
   overflow: hidden;
-
   z-index: 10050;
 }
 .notification-content {
