@@ -38,7 +38,7 @@
     "eslint": "^5.16.0",
     "firebase": "^5.11.1",
     "kind-of": ">=6.0.3",
-    "minimist": ">=1.2.3",
+    "minimist": ">=1.2.6",
     "prettier": "^1.18.2",
     "serialize-javascript": ">=2.1.1",
     "stylus": "^0.54.5",
